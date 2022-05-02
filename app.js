@@ -23,8 +23,12 @@ canvas.on("mouse:wheel", function (opt) {
 	zoom *= 0.999 ** delta;
 	if (zoom > 20) zoom = 20;
 	if (zoom < 1) zoom = 1;
-	canvas.setZoom(zoom);
-	// canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+	if (delta < 0) {
+		canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+	}
+	if (delta > 0) {
+		canvas.setZoom(zoom);
+	}
 	opt.e.preventDefault();
 	opt.e.stopPropagation();
 });
