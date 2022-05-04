@@ -9,7 +9,21 @@
 	</head>
 	<body>
 		<input id="uploader" type="file" />
-		<canvas id="canvas" width="500" height="500"></canvas>
+		<canvas
+			id="canvas"
+			width="400"
+			height="400"
+			class="lower-canvas"
+			style="
+				position: absolute;
+				width: 400px;
+				height: 400px;
+				left: 0px;
+				top: 0px;
+				touch-action: none;
+				user-select: none;
+			"
+		></canvas>
 		<script src="fabric.min.js"></script>
 		<script src="app.js"></script>
 	</body>

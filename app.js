@@ -7,8 +7,8 @@ document.getElementById("uploader").onchange = function (e) {
 		image.onload = function () {
 			var img = new fabric.Image(image);
 			img.set({
-				left: 50,
-				top: 0,
+				left: 30,
+				top: 10,
 			});
 			img.scaleToWidth(400);
 			canvas.add(img).setActiveObject(img).renderAll();
@@ -25,10 +25,26 @@ canvas.on("mouse:wheel", function (opt) {
 	if (zoom < 1) zoom = 1;
 	if (delta < 0) {
 		canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+	} else {
+		canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+		var vpt = this.viewportTransform;
+		if (zoom * 0.4 * 0.01 < 400 / 1000) {
+			vpt[4] = 200 - (1000 * zoom * 0.4) / 2;
+			vpt[5] = 200 - (1000 * zoom * 0.4) / 2;
+		} else {
+			if (vpt[4] >= 0) {
+				vpt[4] = 0;
+			} else if (vpt[4] < canvas.getWidth() - 1000 * zoom * 0.4) {
+				vpt[4] = canvas.getWidth() - 1000 * zoom * 0.4;
+			}
+			if (vpt[5] >= 0) {
+				vpt[5] = 0;
+			} else if (vpt[5] < canvas.getHeight() - 1000 * zoom * 0.4) {
+				vpt[5] = canvas.getHeight() - 1000 * zoom * 0.4;
+			}
+		}
 	}
-	if (delta > 0) {
-		canvas.setZoom(zoom);
-	}
+
 	opt.e.preventDefault();
 	opt.e.stopPropagation();
 });
