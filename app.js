@@ -18,6 +18,12 @@ document.getElementById("uploader").onchange = function (e) {
 };
 
 canvas.on("mouse:wheel", function (opt) {
+	let upperCanvas = document.querySelector(".upper-canvas");
+
+	upperCanvas.animate({
+		// easing: "easeInOutQuad",
+		duration: 15000,
+	});
 	var delta = opt.e.deltaY;
 	var zoom = canvas.getZoom();
 	zoom *= 0.999 ** delta;
@@ -28,7 +34,7 @@ canvas.on("mouse:wheel", function (opt) {
 	} else {
 		canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
 		var vpt = this.viewportTransform;
-		if (zoom * 0.4 * 0.01 < 400 / 1000) {
+		if (zoom === 1) {
 			vpt[4] = 200 - (1000 * zoom * 0.4) / 2;
 			vpt[5] = 200 - (1000 * zoom * 0.4) / 2;
 		} else {
